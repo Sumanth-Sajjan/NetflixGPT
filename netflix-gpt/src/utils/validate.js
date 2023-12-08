@@ -6,7 +6,6 @@ export const loginValidation = (email, password, name, isSignIn) => {
   var isValidName = true;
   if (!isSignIn) {
     isValidName = /^[A-Za-z][A-Za-z\s.'-]*[A-Za-z]$/.test(name);
-    console.log(isValidName);
   }
   if (!isValidEmail) return "Email is not valid";
   if (!isValidPassword) return "Password is not valid";

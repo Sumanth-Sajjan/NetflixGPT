@@ -4,15 +4,22 @@ import { loginValidation } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+// import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [isError, setIsError] = useState(null);
+  // const navigate = useNavigate();
+  const dispatch = useDispatch();
   const email = useRef();
   const password = useRef();
   const name = useRef();
+
   const handleValidation = () => {
     const message = isSignIn
       ? loginValidation(
@@ -37,12 +44,30 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL:
+              "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngegg.com%2Fen%2Fsearch%3Fq%3Duser&psig=AOvVaw2w9JQZXVo_06LBBaQTtWUc&ust=1702028000169000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCICT1sWC_YIDFQAAAAAdAAAAABAD",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              // navigate("/browse");
+            })
+            .catch((error) => {
+              setIsError(error);
+            });
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode + " - " + errorMessage);
+          setIsError(error.message);
+          console.error("Signup error:", error);
         });
     } else {
       signInWithEmailAndPassword(
@@ -51,13 +76,11 @@ const Login = () => {
         password.current.value
       )
         .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
+          // navigate("/browse");
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode + " " + errorMessage);
+          setIsError(error.message);
+          console.error("Login error:", error);
         });
     }
   };
