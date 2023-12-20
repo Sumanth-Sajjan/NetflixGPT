@@ -1,5 +1,4 @@
 import "./App.css";
-import Body from "./components/Body";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import { Route, Routes } from "react-router-dom";

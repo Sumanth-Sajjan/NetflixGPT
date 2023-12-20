@@ -47,7 +47,7 @@ const Login = () => {
           updateProfile(user, {
             displayName: name.current.value,
             photoURL:
-              "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngegg.com%2Fen%2Fsearch%3Fq%3Duser&psig=AOvVaw2w9JQZXVo_06LBBaQTtWUc&ust=1702028000169000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCICT1sWC_YIDFQAAAAAdAAAAABAD",
+              "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.rawpixel.com%2Fsearch%2Fprofile%2520icon&psig=AOvVaw3H5xT96zf6fX6MS0S4Zdic&ust=1702379420682000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCLC6v9ifh4MDFQAAAAAdAAAAABAE",
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;

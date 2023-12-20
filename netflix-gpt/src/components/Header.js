@@ -20,7 +20,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user.uid;
         dispatch(
@@ -37,6 +37,7 @@ export default function Header() {
         navigate("/");
       }
     });
+    return () => unsubscribe();
   }, []);
   return (
     <div className=" flex absolute px-8 py-2 z-30 bg-gradient-to-b from-black w-full justify-between">
@@ -47,7 +48,7 @@ export default function Header() {
       />
       {user && (
         <div className="flex p-2">
-          <img className="w-12 h-12" src={user?.photoURL} alt="usericon" />
+          <img className="w-12 h-12" src={user?.photoURL} alt="user icon" />
           <button className=" text-white h-10 my-4" onClick={logoutUser}>
             (Signout)
           </button>
