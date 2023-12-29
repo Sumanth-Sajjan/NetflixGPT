@@ -13,11 +13,9 @@ export default function useMovieTrailer(movieId) {
       API_Options
     );
     const json = await data.json();
-    console.log(json);
 
     const filterData = json.results.filter((video) => video.type === "Trailer");
     const trailer = filterData[0];
-    console.log(trailer);
     dispatch(addTrailerVideo(trailer));
   };
   useEffect(() => {
