@@ -17,6 +17,5 @@ export default function useUpcomingMovies() {
 
   useEffect(() => {
     getUpcomingMovies();
-    console.log("upComingMovies" + getUpcomingMovies());
   }, []);
 }

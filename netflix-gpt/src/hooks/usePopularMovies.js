@@ -11,7 +11,6 @@ export default function useNowPopularMovies() {
       "https://api.themoviedb.org/3/movie/popular?page=1",
       API_Options
     );
-    console.log("popular" + data);
     const json = await data.json();
     dispatch(addPopularMovies(json.results));
   };
